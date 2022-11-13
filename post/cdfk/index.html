@@ -910,7 +910,7 @@ floating-base system we can decompose the optimization into smaller tractable pr
 a full-kinematics OCP) that interact through a compact reference that captures the main effects of the dynamics (centroidal quantities). The centroidal plan generated from the CD OCP and
 the (projected) solution of the FK OCP is used as tracking
 reference in the FK OCP and CD OCP respectively. The CD OCP and the FK
-OCP must be solved in a loop (\"kino-dynamic iteration\") until
+OCP must be solved in a loop ("kino-dynamic iteration") until
 consensus is reached with regards to the centroidal quantities.
 
 It's important to note that the CD state has a dimension of 9, while the
@@ -927,7 +927,8 @@ scheme with each optimization running independently is hard to configure
 as communication delays can easily lead to divergence (the CD OCP can
 run at 100 Hz while the FK OCP at 40 Hz).
 
-### Centroidal Dynamics (CD) OCP
+
+<h3>Centroidal Dynamics (CD) OCP</h3>
 
 In the CD OCP, we consider the unactuated part through the Newton-Euler
 equations of the center of mass (CoM):  $$\begin{aligned}
@@ -956,15 +957,14 @@ The CD OCP is formulated as follows:  $$\begin{aligned}
 \end{aligned}
 \label{centroidal}$$ 
 
-Centroidal Dynamics Cost
-------------------------
+where
 
  $$\begin{aligned}
-L(\boldsymbol{c}, \boldsymbol{\dot{c}}, \boldsymbol{l}, \boldsymbol{f}, t) =  (\boldsymbol{X}_{CD} - \boldsymbol{X}_{CD, ref})^T \ \boldsymbol{Q} \ (\boldsymbol{X}_{CD} - \boldsymbol{X}_{CD, ref})  + \boldsymbol{U}_{CD}^T \ \boldsymbol{R}@ \ \boldsymbol{U}_{CD}
+L(\boldsymbol{c}, \boldsymbol{\dot{c}}, \boldsymbol{l}, \boldsymbol{f}, t) = & (\boldsymbol{X}_{CD} - \boldsymbol{X}_{CD, ref})^T \ \boldsymbol{Q} \ (\boldsymbol{X}_{CD} - \boldsymbol{X}_{CD, ref})  + \\ & \boldsymbol{U}_{CD}^T \ \boldsymbol{R} \ \boldsymbol{U}_{CD}
 \end{aligned}$$ 
 
-References (abbreviated as \"ref\") are constructed from FK solution
-(abbreviated as \"FK sol\") :
+References (abbreviated as "ref") are constructed from FK solution
+(abbreviated as "FK sol") :
 
  $$\begin{aligned}
 \boldsymbol{c}_{ref} =   \boldsymbol{c}(\boldsymbol{q}_{FK sol})
@@ -974,10 +974,7 @@ References (abbreviated as \"ref\") are constructed from FK solution
  \begin{bmatrix} \boldsymbol{\dot{c}}_{ref} \\  \boldsymbol{l}_{ref} \end{bmatrix} = \frac{\boldsymbol{A}(\boldsymbol{q}_{FK sol}) \ \boldsymbol{v}_{FK sol}}{m}
 \end{aligned}$$ 
 
-# Full-Kinematics (FK) problem
-
-Full-Kinematics Formulation
----------------------------
+<h3>Full-Kinematics (FK) OCP</h3>
 
 State of FK problem is defined to be:  $$\begin{aligned}
 \boldsymbol{X}_{FK} =   \begin{bmatrix}  \boldsymbol{q}  \\ \boldsymbol{\dot{q}} \end{bmatrix} = \begin{bmatrix} \boldsymbol{q}_b \\ \boldsymbol{q}_j  \\ \boldsymbol{\dot{q}}_b \\ \boldsymbol{\dot{q}}_j \end{bmatrix}
@@ -1004,8 +1001,8 @@ L_{com}(\boldsymbol{q}, t) & = \| \boldsymbol{c}(\boldsymbol{q}) - \boldsymbol{c
 \\
 L_{eff}(\boldsymbol{q}, \boldsymbol{v}, t) & = \| \boldsymbol{r}_{{I} \ c_i} (\boldsymbol{q}) - \boldsymbol{r}_{{I} \  c_i, ref} \|^2 \  + \| \boldsymbol{\dot{r}}_{{I} \ c_i} (\boldsymbol{v}) \|^2  \  \\
 \end{aligned}
-\label{IK}$$ \
-References are constructed from CD solution (\"CD sol\") :
+\label{IK}$$ 
+References are constructed from CD solution ("CD sol") :
 
  $$\begin{aligned}
 \boldsymbol{c}_{ref} = \boldsymbol{c}_{CD \ sol}
@@ -1016,28 +1013,27 @@ References are constructed from CD solution (\"CD sol\") :
 \end{aligned}$$ 
 
  $$\begin{aligned}
- \boldsymbol{X}_{FK, ref} =\begin{bmatrix} \boldsymbol{q}_{b, ref} \\ \boldsymbol{q}_{j, ref}  \\ \boldsymbol{\dot{q}}_{b, ref} \\ \boldsymbol{\dot{q}}_{j, ref} \end{bmatrix} =   \begin{bmatrix} ?  \\ \boldsymbol{q}_{j, nominal} \\ - \\ \boldsymbol{0} \end{bmatrix}
+ \boldsymbol{X}_{FK, ref} =\begin{bmatrix} \boldsymbol{q}_{b, ref} \\ \boldsymbol{q}_{j, ref}  \\ \boldsymbol{\dot{q}}_{b, ref} \\ \boldsymbol{\dot{q}}_{j, ref} \end{bmatrix} =   \begin{bmatrix} -  \\ \boldsymbol{q}_{j, nominal} \\ - \\ \boldsymbol{0} \end{bmatrix}
 \end{aligned}$$ 
 
-Unconstrained inverse dynamics
-==============================
+<h3>Unconstrained inverse dynamics</h3>
 
  $$\boldsymbol{\tau}_{RNEA} = \boldsymbol{M}_a (\boldsymbol{q}) \ \boldsymbol{\dot{v}} + \boldsymbol{b}_a (\boldsymbol{q}, \boldsymbol{v}) - \boldsymbol{J}_{c_a}^T (\boldsymbol{q}) \ \boldsymbol{F_c}
 \label{invdyn}$$ 
 
-Low-level controller
-====================
+<h3>Low-level controller</h3>
 
  $$\boldsymbol{\tau}_{j} = \boldsymbol{\tau}_{RNEA, j} + k_p (\boldsymbol{q}_{d, j} - \boldsymbol{q}_{a, j}) + k_a (\boldsymbol{v}_{d, j} - \boldsymbol{v}_{a, j})
 \label{ctrler}$$ 
 
-[1] "OCS2: An open source library for optimal control of switched
-systems," \[Online\]. Available: https://github.com/leggedrobotics/ocs2.
 
+[1] "OCS2: An open source library for optimal control of switched
+systems," [Online]. Available: https://github.com/leggedrobotics/ocs2.
+<br>
 [2] Russ Tedrake. Underactuated Robotics: Algorithms for Walking, Running,
 Swimming, Flying, and Manipulation (Course Notes for MIT 6.832).
 Downloaded on 12/10/2022 from https://underactuated.csail.mit.edu/
-
+<br>
 [3] R. Budhiraja, J. Carpentier, and N. Mansard, "Dynamics consensus between
 cen- troidal and whole-body models for locomotion of legged robots," in
 International Conference on Robotics and Automation, 2019, pp.
