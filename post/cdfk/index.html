@@ -64,10 +64,10 @@
   
     
   
-  <meta name="description" content="R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown." />
+  <meta name="description" content="Jointly optimizing over all decision variables with a single optimization is desirable and necessary to obtain a solution that is (locally) optimal but often not tractable at control rates (&gt; 10 Hz). An attractive alternative is under mild assumptions to decompose the optimization into smaller problems that interact through a compact selection of quantities that captures the main effects of the decision variables. Solve the smaller problems until consensus and voila you have an optimization loop that is tractable at control rates!" />
 
   
-  <link rel="alternate" hreflang="en-us" href="https://scharalambous3.github.io/post/2020-12-01-r-rmarkdown/" />
+  <link rel="alternate" hreflang="en-us" href="https://scharalambous3.github.io/post/cdfk/" />
 
   
   
@@ -285,7 +285,7 @@
   <link rel="icon" type="image/png" href="/media/icon_hub7a1c745800879165a56661b27a6324f_21626_32x32_fill_lanczos_center_3.png" />
   <link rel="apple-touch-icon" type="image/png" href="/media/icon_hub7a1c745800879165a56661b27a6324f_21626_180x180_fill_lanczos_center_3.png" />
 
-  <link rel="canonical" href="https://scharalambous3.github.io/post/2020-12-01-r-rmarkdown/" />
+  <link rel="canonical" href="https://scharalambous3.github.io/post/cdfk/" />
 
   
   
@@ -311,18 +311,18 @@
     <meta property="twitter:creator" content="@wowchemy" />
   
   <meta property="og:site_name" content="Stefanos Charalambous" />
-  <meta property="og:url" content="https://scharalambous3.github.io/post/2020-12-01-r-rmarkdown/" />
-  <meta property="og:title" content="Hello R Markdown | Stefanos Charalambous" />
-  <meta property="og:description" content="R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown." /><meta property="og:image" content="https://scharalambous3.github.io/media/icon_hub7a1c745800879165a56661b27a6324f_21626_512x512_fill_lanczos_center_3.png" />
+  <meta property="og:url" content="https://scharalambous3.github.io/post/cdfk/" />
+  <meta property="og:title" content="Exploiting structure to make optimization more tractable | Stefanos Charalambous" />
+  <meta property="og:description" content="Jointly optimizing over all decision variables with a single optimization is desirable and necessary to obtain a solution that is (locally) optimal but often not tractable at control rates (&gt; 10 Hz). An attractive alternative is under mild assumptions to decompose the optimization into smaller problems that interact through a compact selection of quantities that captures the main effects of the decision variables. Solve the smaller problems until consensus and voila you have an optimization loop that is tractable at control rates!" /><meta property="og:image" content="https://scharalambous3.github.io/media/icon_hub7a1c745800879165a56661b27a6324f_21626_512x512_fill_lanczos_center_3.png" />
     <meta property="twitter:image" content="https://scharalambous3.github.io/media/icon_hub7a1c745800879165a56661b27a6324f_21626_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2020-12-01T21:13:14-05:00"
+        content="2022-11-12T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2020-12-01T21:13:14-05:00">
+    <meta property="article:modified_time" content="2022-11-13T00:00:00&#43;00:00">
   
 
   
@@ -346,12 +346,12 @@
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://scharalambous3.github.io/post/2020-12-01-r-rmarkdown/"
+    "@id": "https://scharalambous3.github.io/post/cdfk/"
   },
-  "headline": "Hello R Markdown",
+  "headline": "Exploiting structure to make optimization more tractable",
   
-  "datePublished": "2020-12-01T21:13:14-05:00",
-  "dateModified": "2020-12-01T21:13:14-05:00",
+  "datePublished": "2022-11-12T00:00:00Z",
+  "dateModified": "2022-11-13T00:00:00Z",
   
   "author": {
     "@type": "Person",
@@ -366,7 +366,7 @@
       "url": "https://scharalambous3.github.io/media/icon_hub7a1c745800879165a56661b27a6324f_21626_192x192_fill_lanczos_center_3.png"
     }
   },
-  "description": "R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown."
+  "description": "Jointly optimizing over all decision variables with a single optimization is desirable and necessary to obtain a solution that is (locally) optimal but often not tractable at control rates (\u003e 10 Hz). An attractive alternative is under mild assumptions to decompose the optimization into smaller problems that interact through a compact selection of quantities that captures the main effects of the decision variables. Solve the smaller problems until consensus and voila you have an optimization loop that is tractable at control rates!"
 }
 </script>
 
@@ -382,11 +382,11 @@
 
 
 
-  <title>Hello R Markdown | Stefanos Charalambous</title>
+  <title>Exploiting structure to make optimization more tractable | Stefanos Charalambous</title>
 </head>
 
 
-<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="bf1eb249db79f10ace7d22321494165a" >
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="ca34860cd62f24796bd9c856f07e335e" >
 
   
   
@@ -780,8 +780,10 @@
   
   
 <div class="article-container pt-3">
-  <h1>Hello R Markdown</h1>
+  <h1>Exploiting structure to make optimization more tractable</h1>
 
+  
+  <p class="page-subtitle">Jointly optimizing over all decision variables with a single optimization is desirable and necessary to obtain a solution that is (locally) optimal but often not tractable at control rates (&gt; 10 Hz). An attractive alternative is under mild assumptions to decompose the optimization into smaller problems that interact through a compact selection of quantities that captures the main effects of the decision variables. Solve the smaller problems until consensus and voila you have an optimization loop that is tractable at control rates!</p>
   
 
   
@@ -792,14 +794,26 @@
 
   
   
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      Stefanos Charalambous</span>
+  </div>
+  
+  
 
   
   <span class="article-date">
     
     
       
+          Last updated on
+      
     
-    Dec 1, 2020
+    Nov 13, 2022
   </span>
   
 
@@ -808,7 +822,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    1 min read
+    7 min read
   </span>
   
 
@@ -821,7 +835,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/r/">R</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/legged-robots/">Legged robots</a>, <a href="/category/model-based-control/">Model-based control</a></span>
   
 
 </div>
@@ -840,48 +854,195 @@
   <div class="article-container">
 
     <div class="article-style">
-      
+      <h2 id="overview">Overview</h2>
+<p>The dynamics of legged robots are governed by underactuation and discontinuity. For the purpose of this post we circumvent the
+discontinuities in the dynamics by modelling the system as hybrid. We
+assume a pre-defined mode schedule, so as to not deal with the
+combinatorial complexity of footstep planning online and use an optimal
+control framework for switched systems [1].</p>
+<p>Even if we have actuators at all internal joints, the pose of the
+floating base is not directly actuated so floating base systems such as
+legged robots are always underactuated (unless bolted to the ground).
+Beyond the fact it&rsquo;s necessary to consider the dynamics in designing
+control systems for underactuated systems [2], we can
+further exploit the structure of the dynamics to design more efficient
+control architectures.</p>
+<p>The whole-body dynamics of a legged robot with n actuated DoF can be
+represented using the Lagrangian equations of motion: 
+$$\begin{aligned}
+\boldsymbol{M} (\boldsymbol{q}) \ \dot{\boldsymbol{v}} + \boldsymbol{b} (\boldsymbol{q}, \boldsymbol{v}) = \begin{bmatrix} \boldsymbol{0}_{6 \times n} \\ \boldsymbol{{I}}_{n \times n} \end{bmatrix} ^ T \ \boldsymbol{\tau} + \boldsymbol{J}_{c}^T (\boldsymbol{q}) \ \boldsymbol{F}_c \\
+\label{lagrangian} \end{aligned}$$  where  $\boldsymbol{q}$ is the vector of generalized
+coordinates, $\boldsymbol{v}$ is the vector of generalized velocities,
+ $\boldsymbol{M} (\boldsymbol{q})$  is the configuration-dependent
+mass-matrix,  $\boldsymbol{b} (\boldsymbol{q}, \boldsymbol{v})$  is the
+vector containing all non-linear and gravity effects,
+ $\boldsymbol{\tau}$  is the vector of joint torques,  $\boldsymbol{J}_{c}$ 
+is the geometric Jacobian for the end effectors, and  $\boldsymbol{F}_c$ 
+is the stacked vector of forces at each end effector. It's obvious from
+the selection matrix  $\begin{bmatrix} \boldsymbol{0}_{6 \times n} \\ \boldsymbol{{I}}_{n \times n} \end{bmatrix}$ 
+ that the dynamics are underactuated.
+Specifically, the dynamics can be split into an unactuated 
+ $$\begin{aligned}
+\boldsymbol{M}_u (\boldsymbol{q}) \ \dot{\boldsymbol{v}} + \boldsymbol{b}_u (\boldsymbol{q}, \boldsymbol{v}) = \boldsymbol{J}_{c_u}^T (\boldsymbol{q}) \ \boldsymbol{F}_c 
+\end{aligned}
+\label{unactuated}$$
+ 
 
+ and an actuated part
+ $$\begin{aligned}
+\boldsymbol{M}_a (\boldsymbol{q}) \ \dot{\boldsymbol{v}} + \boldsymbol{b}_a (\boldsymbol{q}, \boldsymbol{v}) = \boldsymbol{\tau}_a + \boldsymbol{J}_{c_a}^T (\boldsymbol{q}) \ \boldsymbol{F}_c 
+\end{aligned}
+\label{actuated}$$
+ 
+Under the assumption of sufficient control authority, this split enables
+us to independently consider the unactuated dynamics (or centroidal
+dynamics). Considering a simpler model that captures the main dynamics of the system
+offers a significant advantage in computational complexity.
 
-<div id="r-markdown" class="section level1">
-<h1>R Markdown</h1>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>You can embed an R code chunk like this:</p>
-<pre class="r"><code>summary(cars)
-##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00
-fit &lt;- lm(dist ~ speed, data = cars)
-fit
-## 
-## Call:
-## lm(formula = dist ~ speed, data = cars)
-## 
-## Coefficients:
-## (Intercept)        speed  
-##     -17.579        3.932</code></pre>
-</div>
-<div id="including-plots" class="section level1">
-<h1>Including Plots</h1>
-<p>You can also embed plots. See Figure <a href="#fig:pie">1</a> for example:</p>
-<pre class="r"><code>par(mar = c(0, 1, 0, 1))
-pie(
-  c(280, 60, 20),
-  c(&#39;Sky&#39;, &#39;Sunny side of pyramid&#39;, &#39;Shady side of pyramid&#39;),
-  col = c(&#39;#0292D8&#39;, &#39;#F7EA39&#39;, &#39;#C4B632&#39;),
-  init.angle = -50, border = NA
-)</code></pre>
-<div class="figure"><span style="display:block;" id="fig:pie"></span>
-<img src="https://scharalambous3.github.io/post/2020-12-01-r-rmarkdown/index.en_files/figure-html/pie-1.png" alt="A fancy pie chart." width="672" />
-<p class="caption">
-Figure 1: A fancy pie chart.
+Overall we will be solving two smaller optimization
+problems that is computationally more tractable than solving a single large
+optimization: an optimization of the a simpler that captures the main
+dynamics of the system and an optimization of the full-kinematics that must track the centroidal
+plan as well as fulfill whole-body tasks.
+
+In other words, by exploiting the structure of the dynamics of the
+floating-base system we can decompose the optimization into smaller tractable problems (a centroidal OCP and
+a full-kinematics OCP) that interact through a compact reference that captures the main effects of the dynamics (centroidal quantities). The centroidal plan generated from the CD OCP and
+the (projected) solution of the FK OCP is used as tracking
+reference in the FK OCP and CD OCP respectively. The CD OCP and the FK
+OCP must be solved in a loop (\"kino-dynamic iteration\") until
+consensus is reached with regards to the centroidal quantities.
+
+It's important to note that the CD state has a dimension of 9, while the
+CD input can be represented with a dimension of 6 (a wrench applied at
+the CoM). To address this redundancy and have a well-posed optimization
+that reaches consensus with the FK OCP it's necessary to regularize the
+angular momentum [3].
+
+The disadvantages of this method is approximately twice more parameters
+to tune, and solve times are dependent on how many kino-dynamic
+iterations were needed to reach consensus. In addition, special
+attention must be paid in the implementation. A real-time iteration
+scheme with each optimization running independently is hard to configure
+as communication delays can easily lead to divergence (the CD OCP can
+run at 100 Hz while the FK OCP at 40 Hz).
+
+### Centroidal Dynamics (CD) OCP
+
+In the CD OCP, we consider the unactuated part through the Newton-Euler
+equations of the center of mass (CoM):  $$\begin{aligned}
+\boldsymbol{\dot{h}}_{com} = \begin{bmatrix} \boldsymbol{\dot{p}} \\ m \ \boldsymbol{\dot{l}} \end{bmatrix} = \begin{bmatrix}  \sum_{i=1}^{N}{ \ \boldsymbol{f}_t^{i} \ + m \ \boldsymbol{g}} \\ \sum_{i=1}^{N}{ \ (\boldsymbol{r}_{com \ c_i}^t \times \boldsymbol{f}_t^i)} \end{bmatrix}
+\end{aligned}
+\label{systemmodelling}$$ 
+
+The state in the CD OCP is the CoM position,  $\boldsymbol{c}$ , the
+mass-normalized linear momentum,  $\boldsymbol{\dot{c}}$ , and the
+mass-normalized angular momentum,  $\boldsymbol{l}$ :
+ $\boldsymbol{X}_{CD} =  \begin{bmatrix} \boldsymbol{c} & \boldsymbol{\dot{c}} & \boldsymbol{l} \end{bmatrix}^T$ .
+The input in the CD OCP is the forces applied at the end effectors:
+ $\boldsymbol{U}_{CD} = \begin{bmatrix} \boldsymbol{f}_1   ...   \boldsymbol{f}_{ee} \end{bmatrix}^T$ .
+
+The CD OCP is formulated as follows:  $$\begin{aligned}
+\min_{\boldsymbol{c},\ \boldsymbol{\dot{c}},\ \boldsymbol{l},\ \boldsymbol{f}} \quad & \Phi(\boldsymbol{c}_T, \boldsymbol{\dot{c}}_T, \boldsymbol{l}_T, \boldsymbol{f}_T)+\sum_{t=0}^{T - 1}{L(\boldsymbol{c}_t, \boldsymbol{\dot{c}}_t, \boldsymbol{l}_t, \boldsymbol{f}_t, t)} \\
+\textrm{s.t.} \quad & \boldsymbol{c}_{t+1} = \boldsymbol{c}_t + \boldsymbol{\dot{c}}_t \ \Delta t && \textrm{CoM position dynamics}\\
+  & \boldsymbol{\dot{c}}_{t+1} = \boldsymbol{\dot{c}}_t + \sum_{i=1}^{N}{ \ \frac{\boldsymbol{f}_t^{i}}{m}} \ \Delta t + \boldsymbol{g} \ \Delta t && \textrm{linear momentum dynamics}\\
+  & \boldsymbol{l}_{t+1} = \boldsymbol{l}_t + \sum_{i=1}^{N}{ \ (\boldsymbol{r}_{com \ c_i}^t \times \boldsymbol{f}_t^i)} \ \Delta t && \textrm{angular momentum dynamics}\\
+%  & \forall t,i \quad f_{t, z}^i \geq 0 && \textrm{\cancel{unilateral contact}}\\
+%  & \forall t \quad \boldsymbol{c}_t \in \Omega && \textrm{kinematic constraint}\\
+  & \boldsymbol{c}_{0}, \boldsymbol{\dot{c}}_{0} = \hat{\boldsymbol{c}}_0, \hat{\mathbf{\dot{c}}}_0 && \textrm{initial conditions}\\
+ % & \forall t, i \quad \sqrt{(f_{t, x}^i)^2 + (f_{t, y}^i)^2} \leq \mu \ f_{t, z}^i && \textrm{friction cone}\\
+ & \forall t, i \quad |(f_{t, x}^i)| \leq \mu \ f_{t, z}^i, |(f_{t, y}^i)| \leq \mu \ f_{t, z}^i && \textrm{friction pyramid (stance)}\\
+ & \forall t, i \quad \boldsymbol{f}_t^i = \boldsymbol{0} && \textrm{zero force (swing)}\\
+\end{aligned}
+\label{centroidal}$$ 
+
+Centroidal Dynamics Cost
+------------------------
+
+ $$\begin{aligned}
+L(\boldsymbol{c}, \boldsymbol{\dot{c}}, \boldsymbol{l}, \boldsymbol{f}, t) =  (\boldsymbol{X}_{CD} - \boldsymbol{X}_{CD, ref})^T \ \boldsymbol{Q} \ (\boldsymbol{X}_{CD} - \boldsymbol{X}_{CD, ref})  + \boldsymbol{U}_{CD}^T \ \boldsymbol{R}@ \ \boldsymbol{U}_{CD}
+\end{aligned}$$ 
+
+References (abbreviated as \"ref\") are constructed from FK solution
+(abbreviated as \"FK sol\") :
+
+ $$\begin{aligned}
+\boldsymbol{c}_{ref} =   \boldsymbol{c}(\boldsymbol{q}_{FK sol})
+\end{aligned}$$ 
+
+ $$\begin{aligned}
+ \begin{bmatrix} \boldsymbol{\dot{c}}_{ref} \\  \boldsymbol{l}_{ref} \end{bmatrix} = \frac{\boldsymbol{A}(\boldsymbol{q}_{FK sol}) \ \boldsymbol{v}_{FK sol}}{m}
+\end{aligned}$$ 
+
+# Full-Kinematics (FK) problem
+
+Full-Kinematics Formulation
+---------------------------
+
+State of FK problem is defined to be:  $$\begin{aligned}
+\boldsymbol{X}_{FK} =   \begin{bmatrix}  \boldsymbol{q}  \\ \boldsymbol{\dot{q}} \end{bmatrix} = \begin{bmatrix} \boldsymbol{q}_b \\ \boldsymbol{q}_j  \\ \boldsymbol{\dot{q}}_b \\ \boldsymbol{\dot{q}}_j \end{bmatrix}
+\end{aligned}$$ 
+
+Input of FK problem is defined to be:  $$\begin{aligned}
+\boldsymbol{U}_{FK} = \boldsymbol{\ddot{q}} = \begin{bmatrix}  \boldsymbol{\ddot{q}}_b \\  \boldsymbol{\ddot{q}}_j   \end{bmatrix}
+\end{aligned}$$ 
+
+FK problem is formulated as follows:  $$\begin{aligned}
+\min_{\boldsymbol{q}, \boldsymbol{v}, \boldsymbol{\dot{v}}} \quad & \sum_{t=0}^{T}{L(\boldsymbol{q}_t, \boldsymbol{v}_t, \boldsymbol{\dot{v}}_t, t) + L_{mom}(\boldsymbol{q}_t, \boldsymbol{v}_t, t) + L_{com}(\boldsymbol{q}_t, t) + L_{eff}(\boldsymbol{q}_t, \boldsymbol{v}_t, t) } \\
+\textrm{s.t.} \quad \boldsymbol{q}_{t+1} & = \boldsymbol{q}_t + \boldsymbol{v}_t \ \Delta t \\
+   \boldsymbol{v}_{t+1} & = \boldsymbol{v}_t + \boldsymbol{\dot{v}}_t \ \Delta t \\
+   \boldsymbol{q}_0, \boldsymbol{v}_0 & = \boldsymbol{\hat{q}}_0, \boldsymbol{\hat{v}}_0 \qquad \textrm{initial conditions}\\
+   \ldots{} &  \qquad \textrm{zero acceleration (stance)}     \\
+   \ldots{}  & \qquad \textrm{normal acceleration (swing)}      \\
+   \\
+\textrm{where} \quad
+L(\boldsymbol{q}, \boldsymbol{v}, \boldsymbol{\dot{v}}, t) & = (\boldsymbol{X}_{FK} - \boldsymbol{X}_{FK, ref})^T \ Q \ (\boldsymbol{X}_{FK} - \boldsymbol{X}_{FK, ref}) + {\boldsymbol{\dot{v}}}^T R \boldsymbol{\dot{v}} \\
+\\
+L_{mom}(\boldsymbol{q}, \boldsymbol{v}, t) & = \| \boldsymbol{A}(\boldsymbol{q}) \ \boldsymbol{v} - \boldsymbol{h}_{com, ref} \|^2 \\
+\\
+L_{com}(\boldsymbol{q}, t) & = \| \boldsymbol{c}(\boldsymbol{q}) - \boldsymbol{c}_{ref} \|^2 \\
+\\
+L_{eff}(\boldsymbol{q}, \boldsymbol{v}, t) & = \| \boldsymbol{r}_{{I} \ c_i} (\boldsymbol{q}) - \boldsymbol{r}_{{I} \  c_i, ref} \|^2 \  + \| \boldsymbol{\dot{r}}_{{I} \ c_i} (\boldsymbol{v}) \|^2  \  \\
+\end{aligned}
+\label{IK}$$ \
+References are constructed from CD solution (\"CD sol\") :
+
+ $$\begin{aligned}
+\boldsymbol{c}_{ref} = \boldsymbol{c}_{CD \ sol}
+\end{aligned}$$ 
+
+ $$\begin{aligned}
+\boldsymbol{h}_{com, ref} =  \begin{bmatrix} m \ \boldsymbol{\dot{c}}_{CD sol} \\ m \ \boldsymbol{l}_{CD sol} \end{bmatrix}
+\end{aligned}$$ 
+
+ $$\begin{aligned}
+ \boldsymbol{X}_{FK, ref} =\begin{bmatrix} \boldsymbol{q}_{b, ref} \\ \boldsymbol{q}_{j, ref}  \\ \boldsymbol{\dot{q}}_{b, ref} \\ \boldsymbol{\dot{q}}_{j, ref} \end{bmatrix} =   \begin{bmatrix} ?  \\ \boldsymbol{q}_{j, nominal} \\ - \\ \boldsymbol{0} \end{bmatrix}
+\end{aligned}$$ 
+
+Unconstrained inverse dynamics
+==============================
+
+ $$\boldsymbol{\tau}_{RNEA} = \boldsymbol{M}_a (\boldsymbol{q}) \ \boldsymbol{\dot{v}} + \boldsymbol{b}_a (\boldsymbol{q}, \boldsymbol{v}) - \boldsymbol{J}_{c_a}^T (\boldsymbol{q}) \ \boldsymbol{F_c}
+\label{invdyn}$$ 
+
+Low-level controller
+====================
+
+ $$\boldsymbol{\tau}_{j} = \boldsymbol{\tau}_{RNEA, j} + k_p (\boldsymbol{q}_{d, j} - \boldsymbol{q}_{a, j}) + k_a (\boldsymbol{v}_{d, j} - \boldsymbol{v}_{a, j})
+\label{ctrler}$$ 
+
+[1] "OCS2: An open source library for optimal control of switched
+systems," \[Online\]. Available: https://github.com/leggedrobotics/ocs2.
+
+[2] Russ Tedrake. Underactuated Robotics: Algorithms for Walking, Running,
+Swimming, Flying, and Manipulation (Course Notes for MIT 6.832).
+Downloaded on 12/10/2022 from https://underactuated.csail.mit.edu/
+
+[3] R. Budhiraja, J. Carpentier, and N. Mansard, "Dynamics consensus between
+cen- troidal and whole-body models for locomotion of legged robots," in
+International Conference on Robotics and Automation, 2019, pp.
+6727--6733.
 </p>
-</div>
-</div>
 
     </div>
 
@@ -889,16 +1050,6 @@ Figure 1: A fancy pie chart.
 
 
 
-
-<div class="article-tags">
-  
-  <a class="badge badge-light" href="/tag/r-markdown/">R Markdown</a>
-  
-  <a class="badge badge-light" href="/tag/plot/">plot</a>
-  
-  <a class="badge badge-light" href="/tag/regression/">regression</a>
-  
-</div>
 
 
 
@@ -913,7 +1064,7 @@ Figure 1: A fancy pie chart.
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://scharalambous3.github.io/post/2020-12-01-r-rmarkdown/&amp;text=Hello%20R%20Markdown" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://scharalambous3.github.io/post/cdfk/&amp;text=Exploiting%20structure%20to%20make%20optimization%20more%20tractable" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -926,7 +1077,7 @@ Figure 1: A fancy pie chart.
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://scharalambous3.github.io/post/2020-12-01-r-rmarkdown/&amp;t=Hello%20R%20Markdown" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://scharalambous3.github.io/post/cdfk/&amp;t=Exploiting%20structure%20to%20make%20optimization%20more%20tractable" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -939,7 +1090,7 @@ Figure 1: A fancy pie chart.
       
       
       <li>
-        <a href="mailto:?subject=Hello%20R%20Markdown&amp;body=https://scharalambous3.github.io/post/2020-12-01-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+        <a href="mailto:?subject=Exploiting%20structure%20to%20make%20optimization%20more%20tractable&amp;body=https://scharalambous3.github.io/post/cdfk/" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -952,7 +1103,7 @@ Figure 1: A fancy pie chart.
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://scharalambous3.github.io/post/2020-12-01-r-rmarkdown/&amp;title=Hello%20R%20Markdown" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+        <a href="https://www.linkedin.com/shareArticle?url=https://scharalambous3.github.io/post/cdfk/&amp;title=Exploiting%20structure%20to%20make%20optimization%20more%20tractable" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -965,7 +1116,7 @@ Figure 1: A fancy pie chart.
       
       
       <li>
-        <a href="whatsapp://send?text=Hello%20R%20Markdown%20https://scharalambous3.github.io/post/2020-12-01-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+        <a href="whatsapp://send?text=Exploiting%20structure%20to%20make%20optimization%20more%20tractable%20https://scharalambous3.github.io/post/cdfk/" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -978,7 +1129,7 @@ Figure 1: A fancy pie chart.
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://scharalambous3.github.io/post/2020-12-01-r-rmarkdown/&amp;title=Hello%20R%20Markdown" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://scharalambous3.github.io/post/cdfk/&amp;title=Exploiting%20structure%20to%20make%20optimization%20more%20tractable" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
@@ -998,6 +1149,7 @@ Figure 1: A fancy pie chart.
 
   
   
+    
 
 
 
@@ -1094,6 +1246,7 @@ Figure 1: A fancy pie chart.
   </div>
 
 
+  
 
 
 
