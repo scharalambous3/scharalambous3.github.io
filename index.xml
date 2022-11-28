@@ -52,19 +52,37 @@ further exploit the structure of the dynamics to design more efficient
 control architectures.&lt;/p&gt;
 &lt;p&gt;The whole-body dynamics of a legged robot with n actuated DoF can be
 represented using the Lagrangian equations of motion: 
+
+
 $$\begin{aligned}
 \boldsymbol{M} (\boldsymbol{q}) \ \dot{\boldsymbol{v}} + \boldsymbol{b} (\boldsymbol{q}, \boldsymbol{v}) = \begin{bmatrix} \boldsymbol{0}_{6 \times n} \\ \boldsymbol{{I}}_{n \times n} \end{bmatrix} ^ T \ \boldsymbol{\tau} + \boldsymbol{J}_{c}^T (\boldsymbol{q}) \ \boldsymbol{F}_c \\
-\label{lagrangian} \end{aligned}$$  where  $\boldsymbol{q}$ is the vector of generalized
+\label{lagrangian} \end{aligned}$$  where 
+
+ $\boldsymbol{q}$ is the vector of generalized
 coordinates, $\boldsymbol{v}$ is the vector of generalized velocities,
+
+
  $\boldsymbol{M} (\boldsymbol{q})$  is the configuration-dependent
-mass-matrix,  $\boldsymbol{b} (\boldsymbol{q}, \boldsymbol{v})$  is the
+mass-matrix, 
+
+ $\boldsymbol{b} (\boldsymbol{q}, \boldsymbol{v})$  is the
 vector containing all non-linear and gravity effects,
- $\boldsymbol{\tau}$  is the vector of joint torques,  $\boldsymbol{J}_{c}$ 
-is the geometric Jacobian for the end effectors, and  $\boldsymbol{F}_c$ 
+
+
+ $\boldsymbol{\tau}$  is the vector of joint torques, 
+
+ $\boldsymbol{J}_{c}$ 
+is the geometric Jacobian for the end effectors, and 
+
+ $\boldsymbol{F}_c$ 
 is the stacked vector of forces at each end effector. It&#39;s obvious from
-the selection matrix  $\begin{bmatrix} \boldsymbol{0}_{6 \times n} \\ \boldsymbol{{I}}_{n \times n} \end{bmatrix}$ 
+the selection matrix 
+
+ $\begin{bmatrix} \boldsymbol{0}_{6 \times n} \\ \boldsymbol{{I}}_{n \times n} \end{bmatrix}$ 
  that the dynamics are underactuated.
 Specifically, the dynamics can be split into an unactuated 
+
+
  $$\begin{aligned}
 \boldsymbol{M}_u (\boldsymbol{q}) \ \dot{\boldsymbol{v}} + \boldsymbol{b}_u (\boldsymbol{q}, \boldsymbol{v}) = \boldsymbol{J}_{c_u}^T (\boldsymbol{q}) \ \boldsymbol{F}_c 
 \end{aligned}
@@ -72,6 +90,8 @@ Specifically, the dynamics can be split into an unactuated
  
 
  and an actuated part
+
+
  $$\begin{aligned}
 \boldsymbol{M}_a (\boldsymbol{q}) \ \dot{\boldsymbol{v}} + \boldsymbol{b}_a (\boldsymbol{q}, \boldsymbol{v}) = \boldsymbol{\tau}_a + \boldsymbol{J}_{c_a}^T (\boldsymbol{q}) \ \boldsymbol{F}_c 
 \end{aligned}
@@ -114,19 +134,33 @@ run at 100 Hz while the FK OCP at 40 Hz).
 &lt;h3&gt;Centroidal Dynamics (CD) OCP&lt;/h3&gt;
 
 In the CD OCP, we consider the unactuated part through the Newton-Euler
-equations of the center of mass (CoM):  $$\begin{aligned}
+equations of the center of mass (CoM): 
+
+ $$\begin{aligned}
 \boldsymbol{\dot{h}}_{com} = \begin{bmatrix} \boldsymbol{\dot{p}} \\ m \ \boldsymbol{\dot{l}} \end{bmatrix} = \begin{bmatrix}  \sum_{i=1}^{N}{ \ \boldsymbol{f}_t^{i} \ + m \ \boldsymbol{g}} \\ \sum_{i=1}^{N}{ \ (\boldsymbol{r}_{com \ c_i}^t \times \boldsymbol{f}_t^i)} \end{bmatrix}
 \end{aligned}
 \label{systemmodelling}$$ 
 
-The state in the CD OCP is the CoM position,  $\boldsymbol{c}$ , the
-mass-normalized linear momentum,  $\boldsymbol{\dot{c}}$ , and the
-mass-normalized angular momentum,  $\boldsymbol{l}$ :
+The state in the CD OCP is the CoM position, 
+
+ $\boldsymbol{c}$ , the
+mass-normalized linear momentum, 
+
+ $\boldsymbol{\dot{c}}$ , and the
+mass-normalized angular momentum, 
+
+ $\boldsymbol{l}$ :
+
+
  $\boldsymbol{X}_{CD} =  \begin{bmatrix} \boldsymbol{c} &amp; \boldsymbol{\dot{c}} &amp; \boldsymbol{l} \end{bmatrix}^T$ .
 The input in the CD OCP is the forces applied at the end effectors:
+
+
  $\boldsymbol{U}_{CD} = \begin{bmatrix} \boldsymbol{f}_1   ...   \boldsymbol{f}_{ee} \end{bmatrix}^T$ .
 
-The CD OCP is formulated as follows:  $$\begin{aligned}
+The CD OCP is formulated as follows: 
+
+ $$\begin{aligned}
 \min_{\boldsymbol{c},\ \boldsymbol{\dot{c}},\ \boldsymbol{l},\ \boldsymbol{f}} \quad &amp; \Phi(\boldsymbol{c}_T, \boldsymbol{\dot{c}}_T, \boldsymbol{l}_T, \boldsymbol{f}_T)+\sum_{t=0}^{T - 1}{L(\boldsymbol{c}_t, \boldsymbol{\dot{c}}_t, \boldsymbol{l}_t, \boldsymbol{f}_t, t)} \\
 \textrm{s.t.} \quad &amp; \boldsymbol{c}_{t+1} = \boldsymbol{c}_t + \boldsymbol{\dot{c}}_t \ \Delta t &amp;&amp; \textrm{CoM position dynamics}\\
   &amp; \boldsymbol{\dot{c}}_{t+1} = \boldsymbol{\dot{c}}_t + \sum_{i=1}^{N}{ \ \frac{\boldsymbol{f}_t^{i}}{m}} \ \Delta t + \boldsymbol{g} \ \Delta t &amp;&amp; \textrm{linear momentum dynamics}\\
@@ -142,6 +176,8 @@ The CD OCP is formulated as follows:  $$\begin{aligned}
 
 where
 
+
+
  $$\begin{aligned}
 L(\boldsymbol{c}, \boldsymbol{\dot{c}}, \boldsymbol{l}, \boldsymbol{f}, t) = &amp; (\boldsymbol{X}_{CD} - \boldsymbol{X}_{CD, ref})^T \ \boldsymbol{Q} \ (\boldsymbol{X}_{CD} - \boldsymbol{X}_{CD, ref})  + \\ &amp; \boldsymbol{U}_{CD}^T \ \boldsymbol{R} \ \boldsymbol{U}_{CD}
 \end{aligned}$$ 
@@ -149,9 +185,13 @@ L(\boldsymbol{c}, \boldsymbol{\dot{c}}, \boldsymbol{l}, \boldsymbol{f}, t) = &am
 References (abbreviated as &#34;ref&#34;) are constructed from FK solution
 (abbreviated as &#34;FK sol&#34;) :
 
+
+
  $$\begin{aligned}
 \boldsymbol{c}_{ref} =   \boldsymbol{c}(\boldsymbol{q}_{FK sol})
 \end{aligned}$$ 
+
+
 
  $$\begin{aligned}
  \begin{bmatrix} \boldsymbol{\dot{c}}_{ref} \\  \boldsymbol{l}_{ref} \end{bmatrix} = \frac{\boldsymbol{A}(\boldsymbol{q}_{FK sol}) \ \boldsymbol{v}_{FK sol}}{m}
@@ -159,15 +199,21 @@ References (abbreviated as &#34;ref&#34;) are constructed from FK solution
 
 &lt;h3&gt;Full-Kinematics (FK) OCP&lt;/h3&gt;
 
-State of FK problem is defined to be:  $$\begin{aligned}
+State of FK problem is defined to be: 
+
+ $$\begin{aligned}
 \boldsymbol{X}_{FK} =   \begin{bmatrix}  \boldsymbol{q}  \\ \boldsymbol{\dot{q}} \end{bmatrix} = \begin{bmatrix} \boldsymbol{q}_b \\ \boldsymbol{q}_j  \\ \boldsymbol{\dot{q}}_b \\ \boldsymbol{\dot{q}}_j \end{bmatrix}
 \end{aligned}$$ 
 
-Input of FK problem is defined to be:  $$\begin{aligned}
+Input of FK problem is defined to be: 
+
+ $$\begin{aligned}
 \boldsymbol{U}_{FK} = \boldsymbol{\ddot{q}} = \begin{bmatrix}  \boldsymbol{\ddot{q}}_b \\  \boldsymbol{\ddot{q}}_j   \end{bmatrix}
 \end{aligned}$$ 
 
-FK problem is formulated as follows:  $$\begin{aligned}
+FK problem is formulated as follows: 
+
+ $$\begin{aligned}
 \min_{\boldsymbol{q}, \boldsymbol{v}, \boldsymbol{\dot{v}}} \quad &amp; \sum_{t=0}^{T}{L(\boldsymbol{q}_t, \boldsymbol{v}_t, \boldsymbol{\dot{v}}_t, t) + L_{mom}(\boldsymbol{q}_t, \boldsymbol{v}_t, t) + L_{com}(\boldsymbol{q}_t, t) + L_{eff}(\boldsymbol{q}_t, \boldsymbol{v}_t, t) } \\
 \textrm{s.t.} \quad \boldsymbol{q}_{t+1} &amp; = \boldsymbol{q}_t + \boldsymbol{v}_t \ \Delta t \\
    \boldsymbol{v}_{t+1} &amp; = \boldsymbol{v}_t + \boldsymbol{\dot{v}}_t \ \Delta t \\
@@ -187,13 +233,19 @@ L_{eff}(\boldsymbol{q}, \boldsymbol{v}, t) &amp; = \| \boldsymbol{r}_{{I} \ c_i}
 \label{IK}$$ 
 References are constructed from CD solution (&#34;CD sol&#34;) :
 
+
+
  $$\begin{aligned}
 \boldsymbol{c}_{ref} = \boldsymbol{c}_{CD \ sol}
 \end{aligned}$$ 
 
+
+
  $$\begin{aligned}
 \boldsymbol{h}_{com, ref} =  \begin{bmatrix} m \ \boldsymbol{\dot{c}}_{CD sol} \\ m \ \boldsymbol{l}_{CD sol} \end{bmatrix}
 \end{aligned}$$ 
+
+
 
  $$\begin{aligned}
  \boldsymbol{X}_{FK, ref} =\begin{bmatrix} \boldsymbol{q}_{b, ref} \\ \boldsymbol{q}_{j, ref}  \\ \boldsymbol{\dot{q}}_{b, ref} \\ \boldsymbol{\dot{q}}_{j, ref} \end{bmatrix} =   \begin{bmatrix} -  \\ \boldsymbol{q}_{j, nominal} \\ - \\ \boldsymbol{0} \end{bmatrix}
@@ -201,10 +253,14 @@ References are constructed from CD solution (&#34;CD sol&#34;) :
 
 &lt;h3&gt;Unconstrained inverse dynamics&lt;/h3&gt;
 
+
+
  $$\boldsymbol{\tau}_{RNEA} = \boldsymbol{M}_a (\boldsymbol{q}) \ \boldsymbol{\dot{v}} + \boldsymbol{b}_a (\boldsymbol{q}, \boldsymbol{v}) - \boldsymbol{J}_{c_a}^T (\boldsymbol{q}) \ \boldsymbol{F_c}
 \label{invdyn}$$ 
 
 &lt;h3&gt;Low-level controller&lt;/h3&gt;
+
+
 
  $$\boldsymbol{\tau}_{j} = \boldsymbol{\tau}_{RNEA, j} + k_p (\boldsymbol{q}_{d, j} - \boldsymbol{q}_{a, j}) + k_a (\boldsymbol{v}_{d, j} - \boldsymbol{v}_{a, j})
 \label{ctrler}$$ 
@@ -270,10 +326,10 @@ $$&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;fragments&#34;&gt;Fragments&lt;/h2&gt;
 &lt;p&gt;Make content appear incrementally&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;{{% fragment %}} One {{% /fragment %}}
-{{% fragment %}} **Two** {{% /fragment %}}
-{{% fragment %}} Three {{% /fragment %}}
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Press &lt;code&gt;Space&lt;/code&gt; to play!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{{% fragment %}} One {{% /fragment %}}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{{% fragment %}} **Two** {{% /fragment %}}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{{% fragment %}} Three {{% /fragment %}}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Press &lt;code&gt;Space&lt;/code&gt; to play!&lt;/p&gt;
 &lt;span class=&#34;fragment &#34; &gt;
   One
 &lt;/span&gt;
