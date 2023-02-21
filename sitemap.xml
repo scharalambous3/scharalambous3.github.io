@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://scharalambous3.github.io/pastry/pastry/</loc>
+    <loc>https://scharalambous3.github.io/sc/patisserie/</loc>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://scharalambous3.github.io/talk/example-talk/</loc>
@@ -80,7 +80,7 @@
     <loc>https://scharalambous3.github.io/admin/</loc>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://scharalambous3.github.io/pastry/</loc>
+    <loc>https://scharalambous3.github.io/sc/</loc>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>
