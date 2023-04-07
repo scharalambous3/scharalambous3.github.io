@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- This site was created with Wowchemy. https://www.wowchemy.com -->
-<!-- Last Published: February 21, 2023 --><html lang="en-us" >
+<!-- Last Published: April 7, 2023 --><html lang="en-us" >
 
 
 <head>
@@ -663,36 +663,6 @@
           
           
 
-          
-
-          
-          
-          
-            
-          
-
-          
-
-          
-          
-          
-          
-
-          
-            
-              
-              
-            
-            
-          
-
-          <li class="nav-item">
-            <a class="nav-link " href="/uploads/resume.pdf"><span>CV</span></a>
-          </li>
-
-          
-          
-
         
 
           
@@ -869,7 +839,7 @@ $$\begin{aligned}
 \boldsymbol{M} (\boldsymbol{q}) \ \dot{\boldsymbol{v}} + \boldsymbol{b} (\boldsymbol{q}, \boldsymbol{v}) = \begin{bmatrix} \boldsymbol{0}_{6 \times n} \\ \boldsymbol{{I}}_{n \times n} \end{bmatrix} ^ T \ \boldsymbol{\tau} + \boldsymbol{J}_{c}^T (\boldsymbol{q}) \ \boldsymbol{F}_c \\
 \label{lagrangian} \end{aligned}$$  where 
 
- $\boldsymbol{q}$ is the vector of generalized
+ $\boldsymbol{q}$  is the vector of generalized
 coordinates, $\boldsymbol{v}$ is the vector of generalized velocities,
 
 
@@ -882,77 +852,68 @@ vector containing all non-linear and gravity effects,
 
  $\boldsymbol{\tau}$  is the vector of joint torques, 
 
- $\boldsymbol{J}_{c}$ 
+ $\boldsymbol{J}_{c}$
 is the geometric Jacobian for the end effectors, and 
 
- $\boldsymbol{F}_c$ 
-is the stacked vector of forces at each end effector. It's obvious from
+ $\boldsymbol{F}_c$
+is the stacked vector of forces at each end effector. It&rsquo;s obvious from
 the selection matrix 
 
- $\begin{bmatrix} \boldsymbol{0}_{6 \times n} \\ \boldsymbol{{I}}_{n \times n} \end{bmatrix}$ 
- that the dynamics are underactuated.
-Specifically, the dynamics can be split into an unactuated 
+ $\begin{bmatrix} \boldsymbol{0}_{6 \times n} \\ \boldsymbol{{I}}_{n \times n} \end{bmatrix}$
+that the dynamics are underactuated.
+Specifically, the dynamics can be split into an unactuated
 
 
  $$\begin{aligned}
 \boldsymbol{M}_u (\boldsymbol{q}) \ \dot{\boldsymbol{v}} + \boldsymbol{b}_u (\boldsymbol{q}, \boldsymbol{v}) = \boldsymbol{J}_{c_u}^T (\boldsymbol{q}) \ \boldsymbol{F}_c 
 \end{aligned}
 \label{unactuated}$$
- 
-
- and an actuated part
+</p>
+<p>and an actuated part
 
 
  $$\begin{aligned}
 \boldsymbol{M}_a (\boldsymbol{q}) \ \dot{\boldsymbol{v}} + \boldsymbol{b}_a (\boldsymbol{q}, \boldsymbol{v}) = \boldsymbol{\tau}_a + \boldsymbol{J}_{c_a}^T (\boldsymbol{q}) \ \boldsymbol{F}_c 
 \end{aligned}
 \label{actuated}$$
- 
+
 Under the assumption of sufficient control authority, this split enables
 us to independently consider the unactuated dynamics (or centroidal
 dynamics). Considering a simpler model that captures the main dynamics of the system
-offers a significant advantage in computational complexity.
-
-Overall we will be solving two smaller optimization
+offers a significant advantage in computational complexity.</p>
+<p>Overall we will be solving two smaller optimization
 problems that is computationally more tractable than solving a single large
 optimization: an optimization of the a simpler that captures the main
 dynamics of the system and an optimization of the full-kinematics that must track the centroidal
-plan as well as fulfill whole-body tasks.
-
-In other words, by exploiting the structure of the dynamics of the
+plan as well as fulfill whole-body tasks.</p>
+<p>In other words, by exploiting the structure of the dynamics of the
 floating-base system we can decompose the optimization into smaller tractable problems (a centroidal OCP and
 a full-kinematics OCP) that interact through a compact reference that captures the main effects of the dynamics (centroidal quantities). The centroidal plan generated from the CD OCP and
 the (projected) solution of the FK OCP is used as tracking
 reference in the FK OCP and CD OCP respectively. The CD OCP and the FK
-OCP must be solved in a loop ("kino-dynamic iteration") until
-consensus is reached with regards to the centroidal quantities.
-
-It's important to note that the CD state has a dimension of 9, while the
+OCP must be solved in a loop (&ldquo;kino-dynamic iteration&rdquo;) until
+consensus is reached with regards to the centroidal quantities.</p>
+<p>It&rsquo;s important to note that the CD state has a dimension of 9, while the
 CD input can be represented with a dimension of 6 (a wrench applied at
 the CoM). To address this redundancy and have a well-posed optimization
-that reaches consensus with the FK OCP it's necessary to regularize the
-angular momentum [3].
-
-The disadvantages of this method is approximately twice more parameters
+that reaches consensus with the FK OCP it&rsquo;s necessary to regularize the
+angular momentum [3].</p>
+<p>The disadvantages of this method is approximately twice more parameters
 to tune, and solve times are dependent on how many kino-dynamic
 iterations were needed to reach consensus. In addition, special
 attention must be paid in the implementation. A real-time iteration
 scheme with each optimization running independently is hard to configure
 as communication delays can easily lead to divergence (the CD OCP can
-run at 100 Hz while the FK OCP at 40 Hz).
-
-
+run at 100 Hz while the FK OCP at 40 Hz).</p>
 <h3>Centroidal Dynamics (CD) OCP</h3>
-
-In the CD OCP, we consider the unactuated part through the Newton-Euler
+<p>In the CD OCP, we consider the unactuated part through the Newton-Euler
 equations of the center of mass (CoM): 
 
  $$\begin{aligned}
 \boldsymbol{\dot{h}}_{com} = \begin{bmatrix} \boldsymbol{\dot{p}} \\ m \ \boldsymbol{\dot{l}} \end{bmatrix} = \begin{bmatrix}  \sum_{i=1}^{N}{ \ \boldsymbol{f}_t^{i} \ + m \ \boldsymbol{g}} \\ \sum_{i=1}^{N}{ \ (\boldsymbol{r}_{com \ c_i}^t \times \boldsymbol{f}_t^i)} \end{bmatrix}
 \end{aligned}
-\label{systemmodelling}$$ 
-
-The state in the CD OCP is the CoM position, 
+\label{systemmodelling}$$</p>
+<p>The state in the CD OCP is the CoM position, 
 
  $\boldsymbol{c}$ , the
 mass-normalized linear momentum, 
@@ -967,9 +928,8 @@ mass-normalized angular momentum,
 The input in the CD OCP is the forces applied at the end effectors:
 
 
- $\boldsymbol{U}_{CD} = \begin{bmatrix} \boldsymbol{f}_1   ...   \boldsymbol{f}_{ee} \end{bmatrix}^T$ .
-
-The CD OCP is formulated as follows: 
+ $\boldsymbol{U}_{CD} = \begin{bmatrix} \boldsymbol{f}_1   ...   \boldsymbol{f}_{ee} \end{bmatrix}^T$ .</p>
+<p>The CD OCP is formulated as follows: 
 
  $$\begin{aligned}
 \min_{\boldsymbol{c},\ \boldsymbol{\dot{c}},\ \boldsymbol{l},\ \boldsymbol{f}} \quad & \Phi(\boldsymbol{c}_T, \boldsymbol{\dot{c}}_T, \boldsymbol{l}_T, \boldsymbol{f}_T)+\sum_{t=0}^{T - 1}{L(\boldsymbol{c}_t, \boldsymbol{\dot{c}}_t, \boldsymbol{l}_t, \boldsymbol{f}_t, t)} \\
@@ -983,46 +943,37 @@ The CD OCP is formulated as follows:
  & \forall t, i \quad |(f_{t, x}^i)| \leq \mu \ f_{t, z}^i, |(f_{t, y}^i)| \leq \mu \ f_{t, z}^i && \textrm{friction pyramid (stance)}\\
  & \forall t, i \quad \boldsymbol{f}_t^i = \boldsymbol{0} && \textrm{zero force (swing)}\\
 \end{aligned}
-\label{centroidal}$$ 
-
-where
-
+\label{centroidal}$$</p>
+<p>where</p>
 
 
  $$\begin{aligned}
 L(\boldsymbol{c}, \boldsymbol{\dot{c}}, \boldsymbol{l}, \boldsymbol{f}, t) = & (\boldsymbol{X}_{CD} - \boldsymbol{X}_{CD, ref})^T \ \boldsymbol{Q} \ (\boldsymbol{X}_{CD} - \boldsymbol{X}_{CD, ref})  + \\ & \boldsymbol{U}_{CD}^T \ \boldsymbol{R} \ \boldsymbol{U}_{CD}
-\end{aligned}$$ 
-
-References (abbreviated as "ref") are constructed from FK solution
-(abbreviated as "FK sol") :
-
+\end{aligned}$$
+<p>References (abbreviated as &ldquo;ref&rdquo;) are constructed from FK solution
+(abbreviated as &ldquo;FK sol&rdquo;) :</p>
 
 
  $$\begin{aligned}
 \boldsymbol{c}_{ref} =   \boldsymbol{c}(\boldsymbol{q}_{FK sol})
-\end{aligned}$$ 
-
+\end{aligned}$$
 
 
  $$\begin{aligned}
  \begin{bmatrix} \boldsymbol{\dot{c}}_{ref} \\  \boldsymbol{l}_{ref} \end{bmatrix} = \frac{\boldsymbol{A}(\boldsymbol{q}_{FK sol}) \ \boldsymbol{v}_{FK sol}}{m}
-\end{aligned}$$ 
-
+\end{aligned}$$
 <h3>Full-Kinematics (FK) OCP</h3>
-
-State of FK problem is defined to be: 
+<p>State of FK problem is defined to be: 
 
  $$\begin{aligned}
 \boldsymbol{X}_{FK} =   \begin{bmatrix}  \boldsymbol{q}  \\ \boldsymbol{\dot{q}} \end{bmatrix} = \begin{bmatrix} \boldsymbol{q}_b \\ \boldsymbol{q}_j  \\ \boldsymbol{\dot{q}}_b \\ \boldsymbol{\dot{q}}_j \end{bmatrix}
-\end{aligned}$$ 
-
-Input of FK problem is defined to be: 
+\end{aligned}$$</p>
+<p>Input of FK problem is defined to be: 
 
  $$\begin{aligned}
 \boldsymbol{U}_{FK} = \boldsymbol{\ddot{q}} = \begin{bmatrix}  \boldsymbol{\ddot{q}}_b \\  \boldsymbol{\ddot{q}}_j   \end{bmatrix}
-\end{aligned}$$ 
-
-FK problem is formulated as follows: 
+\end{aligned}$$</p>
+<p>FK problem is formulated as follows: 
 
  $$\begin{aligned}
 \min_{\boldsymbol{q}, \boldsymbol{v}, \boldsymbol{\dot{v}}} \quad & \sum_{t=0}^{T}{L(\boldsymbol{q}_t, \boldsymbol{v}_t, \boldsymbol{\dot{v}}_t, t) + L_{mom}(\boldsymbol{q}_t, \boldsymbol{v}_t, t) + L_{com}(\boldsymbol{q}_t, t) + L_{eff}(\boldsymbol{q}_t, \boldsymbol{v}_t, t) } \\
@@ -1041,54 +992,44 @@ L_{com}(\boldsymbol{q}, t) & = \| \boldsymbol{c}(\boldsymbol{q}) - \boldsymbol{c
 \\
 L_{eff}(\boldsymbol{q}, \boldsymbol{v}, t) & = \| \boldsymbol{r}_{{I} \ c_i} (\boldsymbol{q}) - \boldsymbol{r}_{{I} \  c_i, ref} \|^2 \  + \| \boldsymbol{\dot{r}}_{{I} \ c_i} (\boldsymbol{v}) \|^2  \  \\
 \end{aligned}
-\label{IK}$$ 
-References are constructed from CD solution ("CD sol") :
-
+\label{IK}$$
+References are constructed from CD solution (&ldquo;CD sol&rdquo;) :</p>
 
 
  $$\begin{aligned}
 \boldsymbol{c}_{ref} = \boldsymbol{c}_{CD \ sol}
-\end{aligned}$$ 
-
+\end{aligned}$$
 
 
  $$\begin{aligned}
 \boldsymbol{h}_{com, ref} =  \begin{bmatrix} m \ \boldsymbol{\dot{c}}_{CD sol} \\ m \ \boldsymbol{l}_{CD sol} \end{bmatrix}
-\end{aligned}$$ 
-
+\end{aligned}$$
 
 
  $$\begin{aligned}
  \boldsymbol{X}_{FK, ref} =\begin{bmatrix} \boldsymbol{q}_{b, ref} \\ \boldsymbol{q}_{j, ref}  \\ \boldsymbol{\dot{q}}_{b, ref} \\ \boldsymbol{\dot{q}}_{j, ref} \end{bmatrix} =   \begin{bmatrix} -  \\ \boldsymbol{q}_{j, nominal} \\ - \\ \boldsymbol{0} \end{bmatrix}
-\end{aligned}$$ 
-
+\end{aligned}$$
 <h3>Unconstrained inverse dynamics</h3>
 
 
-
  $$\boldsymbol{\tau}_{RNEA} = \boldsymbol{M}_a (\boldsymbol{q}) \ \boldsymbol{\dot{v}} + \boldsymbol{b}_a (\boldsymbol{q}, \boldsymbol{v}) - \boldsymbol{J}_{c_a}^T (\boldsymbol{q}) \ \boldsymbol{F_c}
-\label{invdyn}$$ 
-
+\label{invdyn}$$
 <h3>Low-level controller</h3>
 
 
-
  $$\boldsymbol{\tau}_{j} = \boldsymbol{\tau}_{RNEA, j} + k_p (\boldsymbol{q}_{d, j} - \boldsymbol{q}_{a, j}) + k_a (\boldsymbol{v}_{d, j} - \boldsymbol{v}_{a, j})
-\label{ctrler}$$ 
-
-
-[1] "OCS2: An open source library for optimal control of switched
-systems," [Online]. Available: https://github.com/leggedrobotics/ocs2.
+\label{ctrler}$$
+<p>[1] &ldquo;OCS2: An open source library for optimal control of switched
+systems,&rdquo; [Online]. Available: <a href="https://github.com/leggedrobotics/ocs2" target="_blank" rel="noopener">https://github.com/leggedrobotics/ocs2</a>.
 <br>
 [2] Russ Tedrake. Underactuated Robotics: Algorithms for Walking, Running,
 Swimming, Flying, and Manipulation (Course Notes for MIT 6.832).
-Downloaded on 12/10/2022 from https://underactuated.csail.mit.edu/
+Downloaded on 12/10/2022 from <a href="https://underactuated.csail.mit.edu/" target="_blank" rel="noopener">https://underactuated.csail.mit.edu/</a>
 <br>
-[3] R. Budhiraja, J. Carpentier, and N. Mansard, "Dynamics consensus between
-cen- troidal and whole-body models for locomotion of legged robots," in
+[3] R. Budhiraja, J. Carpentier, and N. Mansard, &ldquo;Dynamics consensus between
+cen- troidal and whole-body models for locomotion of legged robots,&rdquo; in
 International Conference on Robotics and Automation, 2019, pp.
-6727--6733.
-</p>
+6727&ndash;6733.</p>
 
     </div>
 
@@ -1528,35 +1469,6 @@ International Conference on Robotics and Automation, 2019, pp.
 
 
 
-  
-<div id="modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Cite</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        
-        <pre><code></code></pre>
-      </div>
-      <div class="modal-footer">
-        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
-          <i class="fas fa-copy"></i> Copy
-        </a>
-        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
-          <i class="fas fa-download"></i> Download
-        </a>
-        <div id="modal-error"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-  <script src="/js/wowchemy-publication.68f8d7090562ca65fc6d3cb3f8f2d2cb.js" type="module"></script>
 
 
 

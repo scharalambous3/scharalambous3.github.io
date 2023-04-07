@@ -38,7 +38,7 @@ $$\begin{aligned}
 \boldsymbol{M} (\boldsymbol{q}) \ \dot{\boldsymbol{v}} + \boldsymbol{b} (\boldsymbol{q}, \boldsymbol{v}) = \begin{bmatrix} \boldsymbol{0}_{6 \times n} \\ \boldsymbol{{I}}_{n \times n} \end{bmatrix} ^ T \ \boldsymbol{\tau} + \boldsymbol{J}_{c}^T (\boldsymbol{q}) \ \boldsymbol{F}_c \\
 \label{lagrangian} \end{aligned}$$  where 
 
- $\boldsymbol{q}$ is the vector of generalized
+ $\boldsymbol{q}$  is the vector of generalized
 coordinates, $\boldsymbol{v}$ is the vector of generalized velocities,
 
 
@@ -51,77 +51,68 @@ vector containing all non-linear and gravity effects,
 
  $\boldsymbol{\tau}$  is the vector of joint torques, 
 
- $\boldsymbol{J}_{c}$ 
+ $\boldsymbol{J}_{c}$
 is the geometric Jacobian for the end effectors, and 
 
- $\boldsymbol{F}_c$ 
-is the stacked vector of forces at each end effector. It&#39;s obvious from
+ $\boldsymbol{F}_c$
+is the stacked vector of forces at each end effector. It&amp;rsquo;s obvious from
 the selection matrix 
 
- $\begin{bmatrix} \boldsymbol{0}_{6 \times n} \\ \boldsymbol{{I}}_{n \times n} \end{bmatrix}$ 
- that the dynamics are underactuated.
-Specifically, the dynamics can be split into an unactuated 
+ $\begin{bmatrix} \boldsymbol{0}_{6 \times n} \\ \boldsymbol{{I}}_{n \times n} \end{bmatrix}$
+that the dynamics are underactuated.
+Specifically, the dynamics can be split into an unactuated
 
 
  $$\begin{aligned}
 \boldsymbol{M}_u (\boldsymbol{q}) \ \dot{\boldsymbol{v}} + \boldsymbol{b}_u (\boldsymbol{q}, \boldsymbol{v}) = \boldsymbol{J}_{c_u}^T (\boldsymbol{q}) \ \boldsymbol{F}_c 
 \end{aligned}
 \label{unactuated}$$
- 
-
- and an actuated part
+&lt;/p&gt;
+&lt;p&gt;and an actuated part
 
 
  $$\begin{aligned}
 \boldsymbol{M}_a (\boldsymbol{q}) \ \dot{\boldsymbol{v}} + \boldsymbol{b}_a (\boldsymbol{q}, \boldsymbol{v}) = \boldsymbol{\tau}_a + \boldsymbol{J}_{c_a}^T (\boldsymbol{q}) \ \boldsymbol{F}_c 
 \end{aligned}
 \label{actuated}$$
- 
+
 Under the assumption of sufficient control authority, this split enables
 us to independently consider the unactuated dynamics (or centroidal
 dynamics). Considering a simpler model that captures the main dynamics of the system
-offers a significant advantage in computational complexity.
-
-Overall we will be solving two smaller optimization
+offers a significant advantage in computational complexity.&lt;/p&gt;
+&lt;p&gt;Overall we will be solving two smaller optimization
 problems that is computationally more tractable than solving a single large
 optimization: an optimization of the a simpler that captures the main
 dynamics of the system and an optimization of the full-kinematics that must track the centroidal
-plan as well as fulfill whole-body tasks.
-
-In other words, by exploiting the structure of the dynamics of the
+plan as well as fulfill whole-body tasks.&lt;/p&gt;
+&lt;p&gt;In other words, by exploiting the structure of the dynamics of the
 floating-base system we can decompose the optimization into smaller tractable problems (a centroidal OCP and
 a full-kinematics OCP) that interact through a compact reference that captures the main effects of the dynamics (centroidal quantities). The centroidal plan generated from the CD OCP and
 the (projected) solution of the FK OCP is used as tracking
 reference in the FK OCP and CD OCP respectively. The CD OCP and the FK
-OCP must be solved in a loop (&#34;kino-dynamic iteration&#34;) until
-consensus is reached with regards to the centroidal quantities.
-
-It&#39;s important to note that the CD state has a dimension of 9, while the
+OCP must be solved in a loop (&amp;ldquo;kino-dynamic iteration&amp;rdquo;) until
+consensus is reached with regards to the centroidal quantities.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s important to note that the CD state has a dimension of 9, while the
 CD input can be represented with a dimension of 6 (a wrench applied at
 the CoM). To address this redundancy and have a well-posed optimization
-that reaches consensus with the FK OCP it&#39;s necessary to regularize the
-angular momentum [3].
-
-The disadvantages of this method is approximately twice more parameters
+that reaches consensus with the FK OCP it&amp;rsquo;s necessary to regularize the
+angular momentum [3].&lt;/p&gt;
+&lt;p&gt;The disadvantages of this method is approximately twice more parameters
 to tune, and solve times are dependent on how many kino-dynamic
 iterations were needed to reach consensus. In addition, special
 attention must be paid in the implementation. A real-time iteration
 scheme with each optimization running independently is hard to configure
 as communication delays can easily lead to divergence (the CD OCP can
-run at 100 Hz while the FK OCP at 40 Hz).
-
-
+run at 100 Hz while the FK OCP at 40 Hz).&lt;/p&gt;
 &lt;h3&gt;Centroidal Dynamics (CD) OCP&lt;/h3&gt;
-
-In the CD OCP, we consider the unactuated part through the Newton-Euler
+&lt;p&gt;In the CD OCP, we consider the unactuated part through the Newton-Euler
 equations of the center of mass (CoM): 
 
  $$\begin{aligned}
 \boldsymbol{\dot{h}}_{com} = \begin{bmatrix} \boldsymbol{\dot{p}} \\ m \ \boldsymbol{\dot{l}} \end{bmatrix} = \begin{bmatrix}  \sum_{i=1}^{N}{ \ \boldsymbol{f}_t^{i} \ + m \ \boldsymbol{g}} \\ \sum_{i=1}^{N}{ \ (\boldsymbol{r}_{com \ c_i}^t \times \boldsymbol{f}_t^i)} \end{bmatrix}
 \end{aligned}
-\label{systemmodelling}$$ 
-
-The state in the CD OCP is the CoM position, 
+\label{systemmodelling}$$&lt;/p&gt;
+&lt;p&gt;The state in the CD OCP is the CoM position, 
 
  $\boldsymbol{c}$ , the
 mass-normalized linear momentum, 
@@ -136,9 +127,8 @@ mass-normalized angular momentum,
 The input in the CD OCP is the forces applied at the end effectors:
 
 
- $\boldsymbol{U}_{CD} = \begin{bmatrix} \boldsymbol{f}_1   ...   \boldsymbol{f}_{ee} \end{bmatrix}^T$ .
-
-The CD OCP is formulated as follows: 
+ $\boldsymbol{U}_{CD} = \begin{bmatrix} \boldsymbol{f}_1   ...   \boldsymbol{f}_{ee} \end{bmatrix}^T$ .&lt;/p&gt;
+&lt;p&gt;The CD OCP is formulated as follows: 
 
  $$\begin{aligned}
 \min_{\boldsymbol{c},\ \boldsymbol{\dot{c}},\ \boldsymbol{l},\ \boldsymbol{f}} \quad &amp; \Phi(\boldsymbol{c}_T, \boldsymbol{\dot{c}}_T, \boldsymbol{l}_T, \boldsymbol{f}_T)+\sum_{t=0}^{T - 1}{L(\boldsymbol{c}_t, \boldsymbol{\dot{c}}_t, \boldsymbol{l}_t, \boldsymbol{f}_t, t)} \\
@@ -152,46 +142,37 @@ The CD OCP is formulated as follows:
  &amp; \forall t, i \quad |(f_{t, x}^i)| \leq \mu \ f_{t, z}^i, |(f_{t, y}^i)| \leq \mu \ f_{t, z}^i &amp;&amp; \textrm{friction pyramid (stance)}\\
  &amp; \forall t, i \quad \boldsymbol{f}_t^i = \boldsymbol{0} &amp;&amp; \textrm{zero force (swing)}\\
 \end{aligned}
-\label{centroidal}$$ 
-
-where
-
+\label{centroidal}$$&lt;/p&gt;
+&lt;p&gt;where&lt;/p&gt;
 
 
  $$\begin{aligned}
 L(\boldsymbol{c}, \boldsymbol{\dot{c}}, \boldsymbol{l}, \boldsymbol{f}, t) = &amp; (\boldsymbol{X}_{CD} - \boldsymbol{X}_{CD, ref})^T \ \boldsymbol{Q} \ (\boldsymbol{X}_{CD} - \boldsymbol{X}_{CD, ref})  + \\ &amp; \boldsymbol{U}_{CD}^T \ \boldsymbol{R} \ \boldsymbol{U}_{CD}
-\end{aligned}$$ 
-
-References (abbreviated as &#34;ref&#34;) are constructed from FK solution
-(abbreviated as &#34;FK sol&#34;) :
-
+\end{aligned}$$
+&lt;p&gt;References (abbreviated as &amp;ldquo;ref&amp;rdquo;) are constructed from FK solution
+(abbreviated as &amp;ldquo;FK sol&amp;rdquo;) :&lt;/p&gt;
 
 
  $$\begin{aligned}
 \boldsymbol{c}_{ref} =   \boldsymbol{c}(\boldsymbol{q}_{FK sol})
-\end{aligned}$$ 
-
+\end{aligned}$$
 
 
  $$\begin{aligned}
  \begin{bmatrix} \boldsymbol{\dot{c}}_{ref} \\  \boldsymbol{l}_{ref} \end{bmatrix} = \frac{\boldsymbol{A}(\boldsymbol{q}_{FK sol}) \ \boldsymbol{v}_{FK sol}}{m}
-\end{aligned}$$ 
-
+\end{aligned}$$
 &lt;h3&gt;Full-Kinematics (FK) OCP&lt;/h3&gt;
-
-State of FK problem is defined to be: 
+&lt;p&gt;State of FK problem is defined to be: 
 
  $$\begin{aligned}
 \boldsymbol{X}_{FK} =   \begin{bmatrix}  \boldsymbol{q}  \\ \boldsymbol{\dot{q}} \end{bmatrix} = \begin{bmatrix} \boldsymbol{q}_b \\ \boldsymbol{q}_j  \\ \boldsymbol{\dot{q}}_b \\ \boldsymbol{\dot{q}}_j \end{bmatrix}
-\end{aligned}$$ 
-
-Input of FK problem is defined to be: 
+\end{aligned}$$&lt;/p&gt;
+&lt;p&gt;Input of FK problem is defined to be: 
 
  $$\begin{aligned}
 \boldsymbol{U}_{FK} = \boldsymbol{\ddot{q}} = \begin{bmatrix}  \boldsymbol{\ddot{q}}_b \\  \boldsymbol{\ddot{q}}_j   \end{bmatrix}
-\end{aligned}$$ 
-
-FK problem is formulated as follows: 
+\end{aligned}$$&lt;/p&gt;
+&lt;p&gt;FK problem is formulated as follows: 
 
  $$\begin{aligned}
 \min_{\boldsymbol{q}, \boldsymbol{v}, \boldsymbol{\dot{v}}} \quad &amp; \sum_{t=0}^{T}{L(\boldsymbol{q}_t, \boldsymbol{v}_t, \boldsymbol{\dot{v}}_t, t) + L_{mom}(\boldsymbol{q}_t, \boldsymbol{v}_t, t) + L_{com}(\boldsymbol{q}_t, t) + L_{eff}(\boldsymbol{q}_t, \boldsymbol{v}_t, t) } \\
@@ -210,54 +191,44 @@ L_{com}(\boldsymbol{q}, t) &amp; = \| \boldsymbol{c}(\boldsymbol{q}) - \boldsymb
 \\
 L_{eff}(\boldsymbol{q}, \boldsymbol{v}, t) &amp; = \| \boldsymbol{r}_{{I} \ c_i} (\boldsymbol{q}) - \boldsymbol{r}_{{I} \  c_i, ref} \|^2 \  + \| \boldsymbol{\dot{r}}_{{I} \ c_i} (\boldsymbol{v}) \|^2  \  \\
 \end{aligned}
-\label{IK}$$ 
-References are constructed from CD solution (&#34;CD sol&#34;) :
-
+\label{IK}$$
+References are constructed from CD solution (&amp;ldquo;CD sol&amp;rdquo;) :&lt;/p&gt;
 
 
  $$\begin{aligned}
 \boldsymbol{c}_{ref} = \boldsymbol{c}_{CD \ sol}
-\end{aligned}$$ 
-
+\end{aligned}$$
 
 
  $$\begin{aligned}
 \boldsymbol{h}_{com, ref} =  \begin{bmatrix} m \ \boldsymbol{\dot{c}}_{CD sol} \\ m \ \boldsymbol{l}_{CD sol} \end{bmatrix}
-\end{aligned}$$ 
-
+\end{aligned}$$
 
 
  $$\begin{aligned}
  \boldsymbol{X}_{FK, ref} =\begin{bmatrix} \boldsymbol{q}_{b, ref} \\ \boldsymbol{q}_{j, ref}  \\ \boldsymbol{\dot{q}}_{b, ref} \\ \boldsymbol{\dot{q}}_{j, ref} \end{bmatrix} =   \begin{bmatrix} -  \\ \boldsymbol{q}_{j, nominal} \\ - \\ \boldsymbol{0} \end{bmatrix}
-\end{aligned}$$ 
-
+\end{aligned}$$
 &lt;h3&gt;Unconstrained inverse dynamics&lt;/h3&gt;
 
 
-
  $$\boldsymbol{\tau}_{RNEA} = \boldsymbol{M}_a (\boldsymbol{q}) \ \boldsymbol{\dot{v}} + \boldsymbol{b}_a (\boldsymbol{q}, \boldsymbol{v}) - \boldsymbol{J}_{c_a}^T (\boldsymbol{q}) \ \boldsymbol{F_c}
-\label{invdyn}$$ 
-
+\label{invdyn}$$
 &lt;h3&gt;Low-level controller&lt;/h3&gt;
 
 
-
  $$\boldsymbol{\tau}_{j} = \boldsymbol{\tau}_{RNEA, j} + k_p (\boldsymbol{q}_{d, j} - \boldsymbol{q}_{a, j}) + k_a (\boldsymbol{v}_{d, j} - \boldsymbol{v}_{a, j})
-\label{ctrler}$$ 
-
-
-[1] &#34;OCS2: An open source library for optimal control of switched
-systems,&#34; [Online]. Available: https://github.com/leggedrobotics/ocs2.
+\label{ctrler}$$
+&lt;p&gt;[1] &amp;ldquo;OCS2: An open source library for optimal control of switched
+systems,&amp;rdquo; [Online]. Available: &lt;a href=&#34;https://github.com/leggedrobotics/ocs2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/leggedrobotics/ocs2&lt;/a&gt;.
 &lt;br&gt;
 [2] Russ Tedrake. Underactuated Robotics: Algorithms for Walking, Running,
 Swimming, Flying, and Manipulation (Course Notes for MIT 6.832).
-Downloaded on 12/10/2022 from https://underactuated.csail.mit.edu/
+Downloaded on 12/10/2022 from &lt;a href=&#34;https://underactuated.csail.mit.edu/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://underactuated.csail.mit.edu/&lt;/a&gt;
 &lt;br&gt;
-[3] R. Budhiraja, J. Carpentier, and N. Mansard, &#34;Dynamics consensus between
-cen- troidal and whole-body models for locomotion of legged robots,&#34; in
+[3] R. Budhiraja, J. Carpentier, and N. Mansard, &amp;ldquo;Dynamics consensus between
+cen- troidal and whole-body models for locomotion of legged robots,&amp;rdquo; in
 International Conference on Robotics and Automation, 2019, pp.
-6727--6733.
-&lt;/p&gt;
+6727&amp;ndash;6733.&lt;/p&gt;
 </description>
     </item>
     
