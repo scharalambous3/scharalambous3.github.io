@@ -41,11 +41,7 @@
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://scharalambous3.github.io/project/example/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://scharalambous3.github.io/project/</loc>
+    <loc>https://scharalambous3.github.io/unused/example/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -53,10 +49,23 @@
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
+    <loc>https://scharalambous3.github.io/unused/</loc>
+    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
     <loc>https://scharalambous3.github.io/admin/</loc>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://scharalambous3.github.io/sc/</loc>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://scharalambous3.github.io/project/cito/</loc>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://scharalambous3.github.io/project/hrlmpc/</loc>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://scharalambous3.github.io/project/</loc>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://scharalambous3.github.io/publication_types/</loc>
