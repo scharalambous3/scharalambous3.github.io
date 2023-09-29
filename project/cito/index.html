@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- This site was created with Wowchemy. https://www.wowchemy.com -->
-<!-- Last Published: September 28, 2023 --><html lang="en-us" >
+<!-- Last Published: September 29, 2023 --><html lang="en-us" >
 
 
 <head>
@@ -275,7 +275,7 @@
 
   
 
-<meta name="description" content="Motivation We present a contact-implicit trajectory optimization framework for athletic locomotion that works with minimal guidance. The motivation behind our work is to enable its usage as a task-agnostic expert for imitation learning." />
+<meta name="description" content="A contact-implicit trajectory optimization framework for athletic locomotion." />
 
 
 
@@ -303,22 +303,21 @@
 
 
   
-  
 
 
 
 
 
 
-<meta property="twitter:card" content="summary" />
+<meta property="twitter:card" content="summary_large_image" />
 
   <meta property="twitter:site" content="@wowchemy" />
   <meta property="twitter:creator" content="@wowchemy" />
-<meta property="twitter:image" content="https://scharalambous3.github.io/media/icon_hub7a1c745800879165a56661b27a6324f_21626_512x512_fill_lanczos_center_3.png" />
+<meta property="twitter:image" content="https://scharalambous3.github.io/project/cito/featured.gif" />
 <meta property="og:site_name" content="Stefanos Charalambous" />
 <meta property="og:url" content="https://scharalambous3.github.io/project/cito/" />
 <meta property="og:title" content="Contact-Implicit Planning for Athletic, Contact-Rich Tasks | Stefanos Charalambous" />
-<meta property="og:description" content="Motivation We present a contact-implicit trajectory optimization framework for athletic locomotion that works with minimal guidance. The motivation behind our work is to enable its usage as a task-agnostic expert for imitation learning." /><meta property="og:image" content="https://scharalambous3.github.io/media/icon_hub7a1c745800879165a56661b27a6324f_21626_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+<meta property="og:description" content="A contact-implicit trajectory optimization framework for athletic locomotion." /><meta property="og:image" content="https://scharalambous3.github.io/project/cito/featured.gif" /><meta property="og:locale" content="en-us" />
 
   
   
@@ -348,6 +347,10 @@
   },
   "headline": "Contact-Implicit Planning for Athletic, Contact-Rich Tasks",
   
+  "image": [
+    "https://scharalambous3.github.io/project/cito/featured.gif"
+  ],
+  
   "datePublished": "0001-01-01T00:00:00Z",
   "dateModified": "0001-01-01T00:00:00Z",
   
@@ -364,7 +367,7 @@
       "url": "https://scharalambous3.github.io/media/icon_hub7a1c745800879165a56661b27a6324f_21626_192x192_fill_lanczos_center_3.png"
     }
   },
-  "description": "Motivation We present a contact-implicit trajectory optimization framework for athletic locomotion that works with minimal guidance. The motivation behind our work is to enable its usage as a task-agnostic expert for imitation learning."
+  "description": "A contact-implicit trajectory optimization framework for athletic locomotion."
 }
 </script>
 
@@ -574,7 +577,7 @@
           
 
           <li class="nav-item">
-            <a class="nav-link " href="/#posts"><span>Posts</span></a>
+            <a class="nav-link " href="/#projects"><span>Projects</span></a>
           </li>
 
           
@@ -611,7 +614,7 @@
           
 
           <li class="nav-item">
-            <a class="nav-link " href="/#projects"><span>Projects</span></a>
+            <a class="nav-link " href="/#teaching"><span>Teaching</span></a>
           </li>
 
           
@@ -729,18 +732,27 @@
 
 
 
-  
+
+
+
+
+
+
+
+
 
   
   
-  
+
+
 <div class="article-container pt-3">
   <h1>Contact-Implicit Planning for Athletic, Contact-Rich Tasks</h1>
 
   
+  <p class="page-subtitle">A contact-implicit trajectory optimization (CITO) framework for athletic locomotion that works with minimal guidance. The motivation behind our work is to enable imitation learning for athletic locomotion tasks using CITO as a task-agnostic expert.</p>
+  
 
   
-    
 
 
 <div class="article-metadata">
@@ -772,13 +784,20 @@
 
 </div>
 
-    
-
-
-
-
-
   
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 651px; max-height: 507px;">
+  <div style="position: relative">
+    <img src="/project/cito/featured_hu7def48ed02bd9cc010090d2a32f428da_9527712_720x2500_fit_q75_h2_lanczos_1.webp" width="651" height="507" alt="" class="featured-image">
+    
+  </div>
 </div>
 
 
@@ -786,17 +805,8 @@
   <div class="article-container">
 
     <div class="article-style">
-      <div class="columns is-centered has-text-centered">
-    <div class="column is-four-fifths">
-        <h2>Motivation</h2>
-        <div class="content has-text-justified">
-<p>We present a contact-implicit trajectory optimization framework for athletic locomotion that works with minimal guidance. The motivation behind our work is to enable its usage as a task-agnostic expert for imitation learning.
-</div>
-</div></p>
-</div>
-<hr>
-<h2 id="framework">Framework</h2>
-<p>We present a continuation method for contact-implicit trajectory optimization that works with minimal guidance i.e. without handcrafted initialization nor references. Our framework gradually introduces the contact physics and constraints eliminating the need to handcraft  references and a good initial guess. This allows us to automatically discover motions and contact schedules given only a user-specified goal at the end of the task horizon.</p>
+      <h2 id="framework">Framework</h2>
+<p>We present a continuation method for contact-implicit trajectory optimization that works with minimal guidance i.e. without a handcrafted initialization nor references. We are able to automatically discover motions and contact schedules given only a terminal goal specified by the user. The generated motion plans are then tracked by a whole-body MPC.</p>
 <p>
 
 
@@ -825,14 +835,37 @@
                loading="lazy" data-zoomable /></div>
   </div></figure>
 </p>
+<p>Given only a commanded position (red sphere) and orientation (green arrow) the whole-body motion plan is optimized including gait, foothold positions and base pose references.</p>
 <div class="row">
 <img src="static/image/obstacle_xfurther.gif" alt="Github stars" width="400"/>
 <img src="static/image/obstacle_xfurther2.gif" alt="Language" width="250"/>
 </div>
-<p><em>Figure 1: Given only a commanded position (red sphere) and orientation (green arrow) the whole-body motion plan is optimized including gait, foothold positions and base pose references.</em></p>
 <h2 id="results-on-hardware">Results on hardware</h2>
 <p>Our novel contact-implicit trajectory optimization formulation in the motion refinement stage gives us a direct handle on the contact modes and is a crucial tool in overcoming the sim2real gap. In addition, through the use of a continuation method the generated motion plan has strict physical feasibility.To prove both of these claims, we tested the motion plans generated by our framework on hardware for a complex, under-actuated legged system.</p>
 <p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="HWTest_Highlight"
+           src="/project/cito/static/image/HWTest_Highlight.gif"
+           loading="lazy" data-zoomable /></div>
+  </div></figure>
+
+
 
 
 
@@ -852,9 +885,8 @@
 <video controls  >
   <source src="/project/cito/static/image/4.mp4" type="video/mp4">
 </video>
-
-<em>Figure 2: The resulting motion plans were also tested on hardware.</em></p>
-<h3 id="slides">Slides</h3>
+</p>
+<h3 id="report">Report</h3>
 <script type="text/javascript" src= '/js/pdf-js/build/pdf.js'></script>
 
 <style>
@@ -939,40 +971,40 @@
   @-webkit-keyframes spin {
     to { -webkit-transform: rotate(360deg); }
   }
-  </style><div class="embed-pdf-container" id="embed-pdf-container-f49e2076">
-    <div class="pdf-loadingWrapper" id="pdf-loadingWrapper-f49e2076">
-        <div class="pdf-loading" id="pdf-loading-f49e2076"></div>
+  </style><div class="embed-pdf-container" id="embed-pdf-container-3a71ce23">
+    <div class="pdf-loadingWrapper" id="pdf-loadingWrapper-3a71ce23">
+        <div class="pdf-loading" id="pdf-loading-3a71ce23"></div>
     </div>
     <div id="overlayText">
-      <a href="static/image/SC_CIFramework_CRich_Motions.pdf" aria-label="Download" download>
+      <a href="static/image/CITO_Paper.pdf" aria-label="Download" download>
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
             <path d="M9 13c.3 0 .5-.1.7-.3L15.4 7 14 5.6l-4 4V1H8v8.6l-4-4L2.6 7l5.7 5.7c.2.2.4.3.7.3zm-7 2h14v2H2z" />
         </svg>
       </a>
     </div>
-    <canvas class="pdf-canvas" id="pdf-canvas-f49e2076"></canvas>
+    <canvas class="pdf-canvas" id="pdf-canvas-3a71ce23"></canvas>
 </div>
 
-<div class="pdf-paginator" id="pdf-paginator-f49e2076">
-    <button id="pdf-prev-f49e2076">Previous</button>
-    <button id="pdf-next-f49e2076">Next</button> &nbsp; &nbsp;
+<div class="pdf-paginator" id="pdf-paginator-3a71ce23">
+    <button id="pdf-prev-3a71ce23">Previous</button>
+    <button id="pdf-next-3a71ce23">Next</button> &nbsp; &nbsp;
     <span>
-      <span class="pdf-pagenum" id="pdf-pagenum-f49e2076"></span> / <span class="pdf-pagecount" id="pdf-pagecount-f49e2076"></span>
+      <span class="pdf-pagenum" id="pdf-pagenum-3a71ce23"></span> / <span class="pdf-pagecount" id="pdf-pagecount-3a71ce23"></span>
     </span>
-    <a class="pdf-source" id="pdf-source-f49e2076" href="static/image/SC_CIFramework_CRich_Motions.pdf">[pdf]</a>
+    <a class="pdf-source" id="pdf-source-3a71ce23" href="static/image/CITO_Paper.pdf">[pdf]</a>
 </div>
 
 <noscript>
-View the PDF file <a class="pdf-source" id="pdf-source-noscript-f49e2076" href="static/image/SC_CIFramework_CRich_Motions.pdf">here</a>.
+View the PDF file <a class="pdf-source" id="pdf-source-noscript-3a71ce23" href="static/image/CITO_Paper.pdf">here</a>.
 </noscript>
 
 <script type="text/javascript">
     (function(){
-    var url = 'static\/image\/SC_CIFramework_CRich_Motions.pdf';
+    var url = 'static\/image\/CITO_Paper.pdf';
 
     var hidePaginator = "" === "true";
     var hideLoader = "" === "true";
-    var selectedPageNum = parseInt("27") || 1;
+    var selectedPageNum = parseInt("") || 1;
 
     
     var pdfjsLib = window['pdfjs-dist/build/pdf'];
@@ -987,10 +1019,10 @@ View the PDF file <a class="pdf-source" id="pdf-source-noscript-f49e2076" href="
         pageRendering = false,
         pageNumPending = null,
         scale = 3,
-        canvas = document.getElementById('pdf-canvas-f49e2076'),
+        canvas = document.getElementById('pdf-canvas-3a71ce23'),
         ctx = canvas.getContext('2d'),
-        paginator = document.getElementById("pdf-paginator-f49e2076"),
-        loadingWrapper = document.getElementById('pdf-loadingWrapper-f49e2076');
+        paginator = document.getElementById("pdf-paginator-3a71ce23"),
+        loadingWrapper = document.getElementById('pdf-loadingWrapper-3a71ce23');
 
 
     
@@ -1028,7 +1060,7 @@ View the PDF file <a class="pdf-source" id="pdf-source-noscript-f49e2076" href="
       });
 
       
-      document.getElementById('pdf-pagenum-f49e2076').textContent = num;
+      document.getElementById('pdf-pagenum-3a71ce23').textContent = num;
     }
 
     
@@ -1072,7 +1104,7 @@ View the PDF file <a class="pdf-source" id="pdf-source-noscript-f49e2076" href="
       pageNum--;
       queueRenderPage(pageNum);
     }
-    document.getElementById('pdf-prev-f49e2076').addEventListener('click', onPrevPage);
+    document.getElementById('pdf-prev-3a71ce23').addEventListener('click', onPrevPage);
 
     
 
@@ -1083,14 +1115,14 @@ View the PDF file <a class="pdf-source" id="pdf-source-noscript-f49e2076" href="
       pageNum++;
       queueRenderPage(pageNum);
     }
-    document.getElementById('pdf-next-f49e2076').addEventListener('click', onNextPage);
+    document.getElementById('pdf-next-3a71ce23').addEventListener('click', onNextPage);
 
     
 
     pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
       pdfDoc = pdfDoc_;
       var numPages = pdfDoc.numPages;
-      document.getElementById('pdf-pagecount-f49e2076').textContent = numPages;
+      document.getElementById('pdf-pagecount-3a71ce23').textContent = numPages;
 
       
       if(pageNum > numPages) {
